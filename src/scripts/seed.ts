@@ -162,6 +162,26 @@ async function makeKnownUsers(
     };
   }
 
+//Demo User for other people to test the app without creating own Profile:
+async function makeKnownDemoUser(
+    passwordHash: string,
+    sports: { _id: mongoose.Types.ObjectId }[],
+  ) {
+    return {
+      firstName: 'Demo',
+      lastName: 'User',
+      username: 'DemoUser',
+      email: 'demo@demo.com',
+      passwordHash: passwordHash,
+      dateOfBirth: faker.date.birthdate({ min: 18, max: 80, mode: "age" }),
+      gender: "other",
+      location: randomLocation(),
+      profileImage: faker.image.avatar(),
+      bio: faker.person.bio(),
+      sports: makeSportsInterests(sports),
+    };
+  }
+
   async function makeFakeEvents(
     users: any[],
     sports: { _id: mongoose.Types.ObjectId; name: string }[],
@@ -203,11 +223,14 @@ async function makeKnownUsers(
   // Test-User with known credentials for us to log in
   const knownUsers = await makeKnownUsers(passwordHash, sports);
 
+  // Demo User for other people to easy log in
+  const demoUser = await makeKnownDemoUser(passwordHash, sports);
+
   const fakeUsers = await Promise.all(
     Array.from({ length: 13 }).map(() => makeFakeUsers(passwordHash, sports)),
   );
 
-  const users = await User.insertMany([knownUsers, ...fakeUsers]);
+  const users = await User.insertMany([knownUsers, demoUser, ...fakeUsers]);
 
   // 3. Create events, referencing the users you just made
   const fakeEvents = await Promise.all(
