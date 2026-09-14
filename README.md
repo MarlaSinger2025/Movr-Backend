@@ -30,6 +30,7 @@ Movr started as the final project for my Web Development bootcamp at WBS Coding 
 
 ```bash
 npm install
+npm run seed    
 npm run dev
 ```
 
@@ -51,10 +52,18 @@ ACCESS_JWT_SECRET=your-access-token-secret
 | Variable | Description |
 |---|---|
 | `MONGO_URI` | Your MongoDB connection string (e.g. from MongoDB Atlas). |
-| `NODE_ENV` | `development` or `production`. |
+| `NODE_ENV` | `development` locally; set to `production` when deploying (e.g. on Render). |
 | `SALT_ROUNDS` | Number of bcrypt salt rounds used for password hashing. |
 | `REFRESH_TOKEN_TTL` | Refresh token lifetime in seconds (`2592000` = 30 days). |
 | `CLIENT_BASE_URL` | URL of the frontend app, used for CORS and cookie settings. Update to your deployed frontend URL in production. |
 | `ACCESS_JWT_SECRET` | Secret key used to sign access tokens. Use a long, random string — never commit the real value. Command line generation with e.g. Node.js : node -e "console.log(require('crypto').randomBytes(32).toString('hex'))" |
 
 > ⚠️ Never commit your `.env` file. Make sure it's listed in `.gitignore`.
+
+Scripts
+```bash
+npm run dev     # start dev server with hot reload
+npm run seed    # populates DB with demo users, fake activities and sample data
+npm run build   # compile TypeScript
+npm start       # run compiled build
+```
