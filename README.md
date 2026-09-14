@@ -2,7 +2,7 @@
 
 Node/Express/TypeScript API for Movr, a sports & activity community app. Handles auth, events, and user data, backed by MongoDB.
 
-- live deployed app on render: 
+- live deployed app on render: https://movr-app.onrender.com/
 
 ## About this project
 
